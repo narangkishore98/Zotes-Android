@@ -1,4 +1,4 @@
-package xyz.kishorenarang.zotes.ui.dashboard
+package xyz.kishorenarang.zotes.ui.create
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import xyz.kishorenarang.zotes.R
 
-class DashboardFragment : Fragment() {
+class CreateFragment : Fragment() {
 
-    private lateinit var dashboardViewModel: DashboardViewModel
+    private lateinit var createViewModel: CreateViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dashboardViewModel =
-            ViewModelProviders.of(this).get(DashboardViewModel::class.java)
+        createViewModel =
+            ViewModelProviders.of(this).get(CreateViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
         val textView: TextView = root.findViewById(R.id.text_dashboard)
-        dashboardViewModel.text.observe(this, Observer {
+        createViewModel.text.observe(this, Observer {
             textView.text = it
         })
         return root

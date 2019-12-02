@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="xyz.kishorenarang.zotes.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:name="xyz.kishorenarang.zotes.ui.create.CreateFragment"
+        android:label="@string/title_create"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="xyz.kishorenarang.zotes.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:name="xyz.kishorenarang.zotes.ui.settings.SettingsFragment"
+        android:label="@string/title_settings"
         tools:layout="@layout/fragment_notifications" />
 </navigation>
