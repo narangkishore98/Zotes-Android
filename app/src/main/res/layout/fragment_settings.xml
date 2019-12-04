@@ -5,12 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/frame_container"
+    >
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerForSettings"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/settingsList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+
+        ></androidx.recyclerview.widget.RecyclerView>
+
+</FrameLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
