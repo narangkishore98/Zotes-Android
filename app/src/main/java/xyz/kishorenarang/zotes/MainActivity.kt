@@ -7,8 +7,12 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import xyz.kishorenarang.zotes.ui.create.ActionBottomDialogFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() ,ActionBottomDialogFragment.ItemClickListener {
+    override fun onItemClick(item: String?) {
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

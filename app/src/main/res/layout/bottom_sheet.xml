@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
+    >
+
+    <TextView
+        android:id="@+id/addImageFromPhotos"
+        style="@style/ActionItem"
+        android:layout_marginTop="8dp"
+        android:drawableStart="@android:drawable/ic_menu_add"
+        android:drawableLeft="@android:drawable/ic_menu_add"
+        android:text="Add Image From Photos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
+    <TextView
+        android:id="@+id/addImageFromCamera"
+        style="@style/ActionItem"
+        android:drawableStart="@android:drawable/ic_menu_camera"
+        android:drawableLeft="@android:drawable/ic_menu_camera"
+        android:text="Add Image From Camera"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addImageFromPhotos" />
+
+    <TextView
+        android:id="@+id/viewAttachedImages"
+        style="@style/ActionItem"
+        android:drawableStart="@android:drawable/ic_menu_view"
+        android:drawableLeft="@android:drawable/ic_menu_view"
+        android:text="View Attached Images"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addImageFromCamera" />
+
+    <TextView
+        android:id="@+id/save"
+        style="@style/ActionItem"
+        android:drawableStart="@android:drawable/ic_menu_save"
+        android:drawableLeft="@android:drawable/ic_menu_save"
+        android:text="Save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewAttachedImages" />
+
+    <TextView
+        android:id="@+id/discard"
+        style="@style/ActionItem"
+        android:drawableStart="@android:drawable/ic_menu_delete"
+        android:drawableLeft="@android:drawable/ic_menu_delete"
+        android:text="Discard"
+        android:textColor="@color/redLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/save" />
+
+    <TextView
+        android:id="@+id/cancel"
+        style="@style/ActionItem"
+        android:drawableStart="@android:drawable/ic_notification_clear_all"
+        android:drawableLeft="@android:drawable/ic_notification_clear_all"
+        android:text="Cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/discard" />
+</androidx.constraintlayout.widget.ConstraintLayout>
