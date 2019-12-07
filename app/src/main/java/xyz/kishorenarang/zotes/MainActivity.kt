@@ -9,7 +9,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import xyz.kishorenarang.zotes.datastore.Zote
+import xyz.kishorenarang.zotes.datastore.ZoteDBHelper
 import xyz.kishorenarang.zotes.ui.create.ActionBottomDialogFragment
+import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() ,ActionBottomDialogFragment.ItemClickListener {
     override fun onItemClick(item: String?) {
@@ -20,6 +23,9 @@ class MainActivity : AppCompatActivity() ,ActionBottomDialogFragment.ItemClickLi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
+
+
+        ZoteDBHelper(this, null).addZote(Zote("TITLE","CONENT",LocalDate.now(),"CANADA"))
 
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each

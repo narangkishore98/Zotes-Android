@@ -1,6 +1,9 @@
 package xyz.kishorenarang.zotes.datastore
 
-class Zote(val title:String, val content:String)
+import java.time.LocalDate
+import java.util.*
+
+class Zote(val title:String, val content:String, val datetime: LocalDate, val location:String)
 {
 
 
