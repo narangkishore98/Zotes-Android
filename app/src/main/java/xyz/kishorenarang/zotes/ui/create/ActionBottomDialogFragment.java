@@ -15,7 +15,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import xyz.kishorenarang.zotes.R;
 
 public class ActionBottomDialogFragment extends BottomSheetDialogFragment
-        implements View.OnClickListener {
+        implements View.OnClickListener
+{
 
     public static final String TAG = "ActionBottomDialog";
 
