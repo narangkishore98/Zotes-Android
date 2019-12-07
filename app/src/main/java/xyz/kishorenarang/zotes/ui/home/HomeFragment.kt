@@ -31,10 +31,15 @@ class HomeFragment : Fragment() {
         //homeViewModel.text.observe(this, Observer {
         //    textView.text = it
         //})
-        recyclerViewHome.adapter = ZoteAdapter(ZoteDBHelper(context!!, null).getAllZotes(),context!!)
-        recyclerViewHome.layoutManager = LinearLayoutManager(context!!)
 
         return root
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        recyclerViewHome.adapter = ZoteAdapter(ZoteDBHelper(context!!, null).getAllZotes(),context!!)
+        recyclerViewHome.layoutManager = LinearLayoutManager(context!!)
 
     }
 }

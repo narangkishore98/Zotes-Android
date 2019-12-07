@@ -209,6 +209,7 @@ public class ActionBottomDialogFragment extends BottomSheetDialogFragment
     }
 
 
+
     public void takePicture(View view)
     {
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
