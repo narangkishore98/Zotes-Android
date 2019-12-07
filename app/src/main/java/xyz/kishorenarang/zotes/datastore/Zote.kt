@@ -7,5 +7,5 @@ import java.util.*
 class Zote(val title:String, val content:String, val datetime: LocalDateTime, val location:String)
 {
 
-
+    var id:Int? = null
 }

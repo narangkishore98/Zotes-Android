@@ -51,5 +51,9 @@ class CreateFragment : Fragment() , ActionBottomDialogFragment.ItemClickListener
             getFragmentManager(),
             ActionBottomDialogFragment.TAG
         )
+
+        addPhotoBottomDialogFragment.parentView = view
+
+
     }
 }

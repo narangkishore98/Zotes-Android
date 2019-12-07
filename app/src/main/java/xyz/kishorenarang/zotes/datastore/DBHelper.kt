@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.provider.ContactsContract
 import android.util.Log
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -72,7 +73,9 @@ class ZoteDBHelper (context: Context,
 
             val location = cursor.getString(cursor.getColumnIndex(Datastore.ZOTE_COL_LOCATION))
 
-            list.add(Zote(title, content,  date,location ))
+            val zote = Zote(title, content,  date,location )
+            zote.id = cursor.getInt(cursor.getColumnIndex(Datastore.ZOTE_COL_ID))
+            list.add(zote)
 
 
 
@@ -172,6 +175,44 @@ class Datastore
         val CATEGORY_COL_CATEGORY_NAME = "category_name"
         val CATEGORY_COL_ID = "category_id"
 
+        //for image table
+
+        val IMAGE_TABLE_NAME = "IMAGES"
+        val IMAGE_COL_IMAGE_NAME = "image_name"
+        val IMAGE_COL_ID = "image_id"
+        val IMAGE_COL_ZOTE = "image_of_zote"
+
     }
 }
 
+
+//image class
+
+
+
+class ImageDBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) : SQLiteOpenHelper(context, Datastore.DATABASE_NAME,
+    factory, Datastore.DATABASE_VERSION)
+{
+    override fun onCreate(db: SQLiteDatabase?) {
+        val CREATE_IMAGE_TABLE = "CREATE TABLE "+Datastore.IMAGE_TABLE_NAME+" ( "+Datastore.IMAGE_COL_ID+" INTEGER PRIMARY KEY, "+ Datastore.IMAGE_COL_IMAGE_NAME+" VARCHAR(255), "+Datastore.IMAGE_COL_ZOTE+" INTEGER , FOREIGN KEY("+Datastore.IMAGE_COL_ZOTE+" REFERENCES "+Datastore.ZOTE_TABLE_NAME+"("+Datastore.ZOTE_COL_ID+")) )"
+        //val dbb = this.writableDatabase
+        Log.i("DB", db.toString())
+        db!!.execSQL(CREATE_IMAGE_TABLE)
+    }
+
+    fun addImage(image: Image)
+    {
+        val values  = ContentValues()
+        values.put(Datastore.IMAGE_COL_IMAGE_NAME,image.imagePath)
+        values.put(Datastore.IMAGE_COL_ZOTE, image.zote!!.id)
+        val db = this.writableDatabase
+        db.insert(Datastore.CATEGORY_TABLE_NAME,null, values)
+        db.close()
+
+    }
+
+    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
+        //To change body of created functions use File | Settings | File Templates.
+    }
+
+}

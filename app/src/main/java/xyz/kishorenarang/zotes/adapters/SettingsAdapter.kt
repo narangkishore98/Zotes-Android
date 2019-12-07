@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.cell_settings.view.*
 import xyz.kishorenarang.zotes.MainActivity
 import xyz.kishorenarang.zotes.R
+import xyz.kishorenarang.zotes.ui.settings.AboutActivity
 import xyz.kishorenarang.zotes.ui.settings.CategoryActivity
 import xyz.kishorenarang.zotes.ui.settings.SettingsFragment
 import java.util.*
@@ -46,6 +47,12 @@ class SettingsAdapter(val settings:Array<String>, val context: Context , val fra
 
                 Toast.makeText(context, "HEY",Toast.LENGTH_LONG).show()
                 val intent = Intent(context, CategoryActivity::class.java)
+                context.startActivity(intent)
+
+            }
+            else
+            {
+                val intent = Intent(context, AboutActivity::class.java)
                 context.startActivity(intent)
 
             }
