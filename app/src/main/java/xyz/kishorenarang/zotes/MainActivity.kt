@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import xyz.kishorenarang.zotes.datastore.CategoryDBHelper
+import xyz.kishorenarang.zotes.datastore.ImageDBHelper
+import xyz.kishorenarang.zotes.datastore.ZoteDBHelper
 
 import xyz.kishorenarang.zotes.ui.create.ActionBottomDialogFragment
 
@@ -18,12 +21,20 @@ class MainActivity : AppCompatActivity() ,ActionBottomDialogFragment.ItemClickLi
 
 
 
-    val navView:BottomNavigationView = findViewById(R.id.nav_view)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
+
+
+        super.onCreate(savedInstanceState)
+
+        ZoteDBHelper(this, null)
+        CategoryDBHelper(this,null)
+        ImageDBHelper(this,null)
+
+        setContentView(R.layout.activity_main)
+        val navView:BottomNavigationView = findViewById(R.id.nav_view)
 
 
         //ZoteDBHelper(this, null).addZote(Zote("TITLE","CONTENT", LocalDateTime.now(),"CANADA"))
@@ -60,7 +71,7 @@ class MainActivity : AppCompatActivity() ,ActionBottomDialogFragment.ItemClickLi
         var WHERE_TO_GO = 0
         fun goToHome()
         {
-            
+
         }
     }
 }

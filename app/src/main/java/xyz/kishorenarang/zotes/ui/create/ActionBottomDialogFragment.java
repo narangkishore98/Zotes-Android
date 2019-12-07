@@ -1,6 +1,7 @@
 package xyz.kishorenarang.zotes.ui.create;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,6 +14,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.provider.Settings;
 import android.util.Log;
@@ -27,6 +29,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -115,6 +119,19 @@ public class ActionBottomDialogFragment extends BottomSheetDialogFragment
         } else if (view == view.findViewById(R.id.save)) {
             saveZote();
         }
+        else if(view == view.findViewById(R.id.discard))
+        {
+
+            EditText etTitle = parentView.findViewById(R.id.editTitle);
+            EditText etContent = parentView.findViewById(R.id.editContent);
+            etTitle.setText("");
+            etContent.setText("");
+            dismiss();
+        }
+        else if(view == view.findViewById(R.id.cancel))
+        {
+            dismiss();
+        }
         //TextView tvSelected = (TextView) view;
         //mListener.onItemClick(tvSelected.getText().toString());
         //dismiss();
@@ -122,45 +139,72 @@ public class ActionBottomDialogFragment extends BottomSheetDialogFragment
 
     private void saveZote() {
 
-        EditText etTitle = parentView.findViewById(R.id.editTitle);
-        EditText etContent = parentView.findViewById(R.id.editContent);
-
-        LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for Activity#requestPermissions for more details.
-            return;
-        }
-        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
-
-        try {
-            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
-            String address = addresses.get(0).getLocality();
+        final EditText etTitle = parentView.findViewById(R.id.editTitle);
+        final EditText etContent = parentView.findViewById(R.id.editContent);
 
 
-            Zote zote = new Zote(etTitle.getText().toString(), etContent.getText().toString(), LocalDateTime.now(),address);
 
-            ZoteDBHelper zdbh = new ZoteDBHelper(context,null);
-            zdbh.addZote(zote);
-            int id = zdbh.getAllZotes().get(zdbh.getAllZotes().size()-1).getId();
 
-            Iterator<String> i = images.iterator();
-            ImageDBHelper idbh = new ImageDBHelper(context, null);
-            while(i.hasNext())
-            {
-                idbh.addImage(new Image(i.next(), zote));
-            }
 
-            MainActivity
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            //String address  = "";
+            new Handler().post(new Runnable() {
+                @Override
+                public void run() {
+                    LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+                    requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                    Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+                    List<Address> addresses= null;
+                    try {
+                        addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+                        String address = addresses.get(0).getLocality();
+                        Zote zote = new Zote(etTitle.getText().toString(), etContent.getText().toString(), LocalDateTime.now(),address);
+
+                        ZoteDBHelper zdbh = new ZoteDBHelper(context,null);
+                        zdbh.addZote(zote);
+                        int id = zdbh.getAllZotes().get(zdbh.getAllZotes().size()-1).getId();
+
+                        Iterator<String> i = images.iterator();
+                        ImageDBHelper idbh = new ImageDBHelper(context, null);
+                        while(i.hasNext())
+                        {
+                            idbh.addImage(new Image(i.next(), zote));
+                        }
+
+                        Toast.makeText(context, "Zote Added Successfully",Toast.LENGTH_LONG).show();
+                        ActionBottomDialogFragment.this.dismiss();
+                    } catch (IOException e) {
+                        Zote zote = new Zote(etTitle.getText().toString(), etContent.getText().toString(), LocalDateTime.now(),"Unknown");
+
+                        ZoteDBHelper zdbh = new ZoteDBHelper(context,null);
+                        zdbh.addZote(zote);
+                    int id = zdbh.getAllZotes().get(zdbh.getAllZotes().size()-1).getId();
+
+                        Iterator<String> i = images.iterator();
+                        ImageDBHelper idbh = new ImageDBHelper(context, null);
+                        while(i.hasNext())
+                        {
+                            idbh.addImage(new Image(i.next(), zote));
+                        }
+
+                        Toast.makeText(context, "Zote Added Successfully",Toast.LENGTH_LONG).show();
+                        ActionBottomDialogFragment.this.dismiss();
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -102,7 +102,7 @@ class CategoryActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, CategoryDBHelper(this, null).categoriesAsStrings())
-            adapter = CategoryAdapter(CategoryDBHelper(this, null).getCategories(), this)
+        adapter = CategoryAdapter(CategoryDBHelper(this, null).getCategories(), this)
         recyclerViewCategories.adapter = adapter
 
         recyclerViewCategories.layoutManager = LinearLayoutManager(this)

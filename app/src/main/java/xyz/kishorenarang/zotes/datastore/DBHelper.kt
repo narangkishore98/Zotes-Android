@@ -126,12 +126,14 @@ class CategoryDBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?)
         val db = this.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM "+Datastore.CATEGORY_TABLE_NAME, null)
         cursor.moveToFirst()
+
+        Log.i("CUR_I",cursor.toString())
         while(cursor.moveToNext())
 
         {
 
             val categoryName = cursor.getString(cursor.getColumnIndex(Datastore.CATEGORY_COL_CATEGORY_NAME))
-            val id = cursor.getInt(cursor.getColumnIndex(Datastore.ZOTE_COL_ID))
+            val id = cursor.getInt(cursor.getColumnIndex(Datastore.CATEGORY_COL_ID))
             val category = Category(categoryName)
             category.id = id
             list.add(category)
@@ -161,7 +163,7 @@ class Datastore
         //for the zote table
 
         val DATABASE_NAME = "ZOTES.db"
-        val DATABASE_VERSION = 1
+        val DATABASE_VERSION = 3
         val ZOTE_TABLE_NAME = "ZOTE"
         val ZOTE_COL_TITLE = "zote_title"
         val ZOTE_COL_CONTENT = "zote_content"
