@@ -121,19 +121,33 @@ class CategoryDBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?)
     {
         var list = ArrayList<Category>()
         val db = this.readableDatabase
-        val cursor = db.rawQuery("SELECT * FROM "+Datastore.CATEGORY_COL_CATEGORY_NAME, null)
+        val cursor = db.rawQuery("SELECT * FROM "+Datastore.CATEGORY_TABLE_NAME, null)
         cursor.moveToFirst()
         while(cursor.moveToNext())
 
         {
 
             val categoryName = cursor.getString(cursor.getColumnIndex(Datastore.CATEGORY_COL_CATEGORY_NAME))
-            list.add(Category(categoryName))
+            val id = cursor.getInt(cursor.getColumnIndex(Datastore.ZOTE_COL_ID))
+            val category = Category(categoryName)
+            category.id = id
+            list.add(category)
 
 
         }
 
         return list
+    }
+
+    fun categoriesAsStrings() : Array<String>
+    {
+        var array = Array<String>(getCategories().size, {i -> ""})
+
+        for(i in 0..getCategories().size)
+        {
+            array[i] = getCategories().get(i).categoryName
+        }
+        return array
     }
 
 }
