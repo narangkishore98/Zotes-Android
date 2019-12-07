@@ -1,27 +1,15 @@
 package xyz.kishorenarang.zotes.ui.create;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.os.StrictMode;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,37 +18,17 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import org.w3c.dom.Text;
-
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
 
-
-import xyz.kishorenarang.zotes.LocationAddress;
-import xyz.kishorenarang.zotes.MainActivity;
 import xyz.kishorenarang.zotes.R;
-import xyz.kishorenarang.zotes.datastore.Image;
-import xyz.kishorenarang.zotes.datastore.ImageDBHelper;
-import xyz.kishorenarang.zotes.datastore.Zote;
-import xyz.kishorenarang.zotes.datastore.ZoteDBHelper;
 
 import static android.app.Activity.RESULT_OK;
 
 public class ActionBottomDialogFragment extends BottomSheetDialogFragment
-        implements View.OnClickListener {
-
-    public View parentView;
-    public Context context;
-
-
-    private List<String> images = new ArrayList<String>();
+        implements View.OnClickListener
+{
 
     public static final String TAG = "ActionBottomDialog";
     Uri file;
@@ -78,10 +46,8 @@ public class ActionBottomDialogFragment extends BottomSheetDialogFragment
         return inflater.inflate(R.layout.bottom_sheet, container, false);
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-        StrictMode.setVmPolicy(builder.build());
+    @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder(); StrictMode.setVmPolicy(builder.build());
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.addImageFromPhotos).setOnClickListener(this);
         view.findViewById(R.id.addImageFromCamera).setOnClickListener(this);
@@ -108,12 +74,26 @@ public class ActionBottomDialogFragment extends BottomSheetDialogFragment
         mListener = null;
     }
 
-    @Override
-    public void onClick(View view) {
-        if (view == view.findViewById(R.id.addImageFromCamera)) {
+    @Override public void onClick(View view) {
+        if(view == view.findViewById(R.id.addImageFromCamera))
+        {
             //Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
             //startActivityForResult(intent, CAMERA);
             takePicture(view);
+        }
+        else if(view == view.findViewById(R.id.addImageFromPhotos))
+        {
+            try {
+                pickPictureFromGallery(view);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else if(view == view.findViewById(R.id.viewAttachedImages))
+        {
+            Intent intent = new Intent(getContext(), ViewAttachmentsActivity.class);
+            intent.putExtra("File",file);
+            this.startActivity(intent);
         } else if (view == view.findViewById(R.id.addImageFromPhotos)) {
             pickPictureFromGallery(view);
         } else if (view == view.findViewById(R.id.save)) {
@@ -245,16 +225,12 @@ public class ActionBottomDialogFragment extends BottomSheetDialogFragment
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 100) {
             if (resultCode == RESULT_OK) {
-
                 Log.e("Image Capture -> ",file.toString());
-                images.add(file.toString());
             }
         }
         else if (requestCode == 200) {
             if (resultCode == RESULT_OK) {
                 Log.e("Image Pick -> ",file.toString());
-                images.add(file.toString());
-
             }
         }
     }
