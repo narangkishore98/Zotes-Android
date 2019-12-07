@@ -26,7 +26,9 @@ class MainActivity : AppCompatActivity() ,ActionBottomDialogFragment.ItemClickLi
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
 
-        ZoteDBHelper(this, null).addZote(Zote("TITLE","CONTENT", LocalDateTime.now(),"CANADA"))
+        //ZoteDBHelper(this, null).addZote(Zote("TITLE","CONTENT", LocalDateTime.now(),"CANADA"))
+
+
         CategoryDBHelper(this,null).addCategory(Category("Test"))
 
         val navController = findNavController(R.id.nav_host_fragment)
