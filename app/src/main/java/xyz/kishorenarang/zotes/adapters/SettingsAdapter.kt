@@ -9,13 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.cell_settings.view.*
 import xyz.kishorenarang.zotes.MainActivity
 import xyz.kishorenarang.zotes.R
-import xyz.kishorenarang.zotes.ui.settings.CategoryFragment
+import xyz.kishorenarang.zotes.ui.settings.CategoryActivity
 import xyz.kishorenarang.zotes.ui.settings.SettingsFragment
 import java.util.*
 
@@ -40,28 +41,21 @@ class SettingsAdapter(val settings:Array<String>, val context: Context , val fra
 //                val frtr  = settingsFragment
 
 
-                fragmentManager.beginTransaction().replace(R.id.frame_container, CategoryFragment()).addToBackStack(null).commit()
+                //fragmentManager.beginTransaction().replace(R.id.frame_container, CategoryFragment()).addToBackStack(null).commit()
 
 
                 Toast.makeText(context, "HEY",Toast.LENGTH_LONG).show()
+                val intent = Intent(context, CategoryActivity::class.java)
+                context.startActivity(intent)
 
             }
         })
-
-
-
         return ViewHolder(view)
-
-
     }
 
     override fun getItemCount(): Int = settings.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-
         holder.settingTitle.text = settings[position]
-
-
     }
 }

@@ -37,7 +37,6 @@ class CreateFragment : Fragment() , ActionBottomDialogFragment.ItemClickListener
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater!!.inflate(R.menu.for_open_context_menu,menu)
-
         super.onCreateOptionsMenu(menu, inflater)
     }
 
