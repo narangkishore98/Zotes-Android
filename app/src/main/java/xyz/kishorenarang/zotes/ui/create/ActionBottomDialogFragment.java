@@ -1,15 +1,22 @@
 package xyz.kishorenarang.zotes.ui.create;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,16 +26,29 @@ import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
 
 import xyz.kishorenarang.zotes.R;
+import xyz.kishorenarang.zotes.datastore.Image;
+import xyz.kishorenarang.zotes.datastore.ImageDBHelper;
+import xyz.kishorenarang.zotes.datastore.Zote;
+import xyz.kishorenarang.zotes.datastore.ZoteDBHelper;
 
 import static android.app.Activity.RESULT_OK;
 
 public class ActionBottomDialogFragment extends BottomSheetDialogFragment
         implements View.OnClickListener
 {
+    Context context;
+    View parentView;
+    List<String> images = new ArrayList<String>();
 
     public static final String TAG = "ActionBottomDialog";
     Uri file;
@@ -83,11 +103,9 @@ public class ActionBottomDialogFragment extends BottomSheetDialogFragment
         }
         else if(view == view.findViewById(R.id.addImageFromPhotos))
         {
-            try {
+
                 pickPictureFromGallery(view);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
         }
         else if(view == view.findViewById(R.id.viewAttachedImages))
         {
