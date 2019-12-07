@@ -19,12 +19,16 @@ import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+import java.util.Random;
 
 import xyz.kishorenarang.zotes.R;
 
 import static android.app.Activity.RESULT_OK;
+import static android.provider.Settings.System.DATE_FORMAT;
 
 public class ActionBottomDialogFragment extends BottomSheetDialogFragment
         implements View.OnClickListener
@@ -83,7 +87,17 @@ public class ActionBottomDialogFragment extends BottomSheetDialogFragment
         }
         else if(view == view.findViewById(R.id.addImageFromPhotos))
         {
-            pickPictureFromGallery(view);
+            try {
+                pickPictureFromGallery(view);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else if(view == view.findViewById(R.id.viewAttachedImages))
+        {
+            Intent intent = new Intent(getContext(), ViewAttachmentsActivity.class);
+            intent.putExtra("File",file);
+            this.startActivity(intent);
         }
         //TextView tvSelected = (TextView) view;
         //mListener.onItemClick(tvSelected.getText().toString());
@@ -97,8 +111,7 @@ public class ActionBottomDialogFragment extends BottomSheetDialogFragment
         startActivityForResult(intent, 100);
     }
 
-    public void pickPictureFromGallery(View view)
-    {
+    public void pickPictureFromGallery(View view) throws IOException {
         Intent intent = new Intent(Intent.ACTION_PICK);
         file = Uri.fromFile(getOutputMediaFile());
         intent.setType("image/*"); //if we remove this code will open Google Drive selection

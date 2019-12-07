@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="xyz.kishorenarang.zotes">
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="ANDROID.PERMISSION.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_zotes"
@@ -11,6 +16,30 @@
         android:roundIcon="@mipmap/ic_zotes_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+
+
+
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="xyz.kishorenarang.zote.fileproviderr"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_path" />
+        </provider>
+
+        <activity
+            android:name=".ui.create.ViewAttachmentsActivity"
+            android:label="@string/title_activity_view_attachments"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="xyz.kishorenarang.zotes.MainActivity" />
+        </activity>
         <activity
             android:name=".ui.settings.CategoryActivity"
             android:label="@string/title_activity_category"
