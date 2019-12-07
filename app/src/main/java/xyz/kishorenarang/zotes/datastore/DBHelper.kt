@@ -144,7 +144,7 @@ class Datastore
         //for the zote table
 
         val DATABASE_NAME = "ZOTES.db"
-        val DATABASE_VERSION = 2
+        val DATABASE_VERSION = 1
         val ZOTE_TABLE_NAME = "ZOTE"
         val ZOTE_COL_TITLE = "zote_title"
         val ZOTE_COL_CONTENT = "zote_content"
